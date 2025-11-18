@@ -1,9 +1,6 @@
 #include <iostream>
-#include <iomanip>
 #include <string>
 using namespace std;
-
-const int MAX_HARI = 100;
 
 void inputSuhu(int suhu[], int n);
 void bubbleSort(int suhu[], int n);
@@ -13,32 +10,17 @@ void tampilkanHasil(const int suhu[], int n, double rataRata, string tren);
 
 int main() {
     int n;
-    int suhu[MAX_HARI];
-    int suhuAsli[MAX_HARI];
-    double rataRata;
-    string tren;
 
-    cout << "\n========================================" << endl;
-    cout << "  PROGRAM REKAP DATA CUACA HARIAN" << endl;
-    cout << "========================================" << endl;
-    cout << "Analisis Suhu Harian dan Tren Temperatur" << endl;
-    cout << "========================================\n" << endl;
+    cout << "\nPROGRAM REKAP DATA CUACA HARIAN" << endl;
+    cout << "================================" << endl;
 
-    cout << "Masukkan jumlah hari (1" << MAX_HARI << "): ";
+    cout << "Masukkan jumlah hari: ";
     cin >> n;
 
-    if (n <= 0 || n > MAX_HARI) {
-        cout << "\nERROR: Input tidak valid!" << endl;
-        cout << "Jumlah hari harus antara" << MAX_HARI << endl;
-        cout << "\n========================================" << endl;
-        cout << "PROGRAM SELESAI" << endl;
-        cout << "========================================\n" << endl;
-        return 1;
-    }
-
-    cout << "\n========================================" << endl;
-    cout << "INPUT DATA SUHU" << endl;
-    cout << "========================================" << endl;
+    int suhu[n];
+    int suhuAsli[n];
+    double rataRata;
+    string tren;
 
     inputSuhu(suhu, n);
 
@@ -51,20 +33,15 @@ int main() {
     rataRata = hitungRataRata(suhu, n);
     tampilkanHasil(suhu, n, rataRata, tren);
 
-    cout << "\n========================================" << endl;
-    cout << "PROGRAM SELESAI" << endl;
-    cout << "========================================\n" << endl;
-
     return 0;
 }
 
 void inputSuhu(int suhu[], int n) {
-    cout << "Masukkan data suhu harian (dalam Celcius):" << endl;
+    cout << "\nMasukkan data suhu:" << endl;
     for (int i = 0; i < n; i++) {
-        cout << "Hari ke-" << (i + 1) << " : ";
+        cout << "Hari " << (i + 1) << ": ";
         cin >> suhu[i];
     }
-    cout << "\nData berhasil diinput!" << endl;
 }
 
 void bubbleSort(int suhu[], int n) {
@@ -78,7 +55,6 @@ void bubbleSort(int suhu[], int n) {
             }
         }
     }
-    cout << "Data berhasil diurutkan!" << endl;
 }
 
 double hitungRataRata(const int suhu[], int n) {
@@ -95,10 +71,10 @@ string cekTren(const int suhu[], int n) {
 
     for (int i = 0; i < n - 1; i++) {
         if (suhu[i] < suhu[i + 1]) {
-            naik = naik + 1;
+            naik++;
         }
         else if (suhu[i] > suhu[i + 1]) {
-            turun = turun + 1;
+            turun++;
         }
     }
 
@@ -114,24 +90,13 @@ string cekTren(const int suhu[], int n) {
 }
 
 void tampilkanHasil(const int suhu[], int n, double rataRata, string tren) {
-    cout << "\n========================================" << endl;
-    cout << "       HASIL ANALISIS SUHU HARIAN" << endl;
-    cout << "========================================" << endl;
+    cout << "\n=== HASIL ANALISIS ===" << endl;
 
-    cout << "\nSUHU TERURUT (Rendah ke Tinggi):" << endl;
-    cout << "----------------------------------------" << endl;
+    cout << "\nSuhu Terurut:" << endl;
     for (int i = 0; i < n; i++) {
-        cout << "Hari ke-" << setw(2) << (i + 1) << " : "
-             << setw(3) << suhu[i] << " C" << endl;
+        cout << suhu[i] << " ";
     }
 
-    cout << "\n----------------------------------------" << endl;
-    cout << "STATISTIK:" << endl;
-    cout << "----------------------------------------" << endl;
-    cout << "Jumlah Data    : " << n << " hari" << endl;
-    cout << "Suhu Terendah  : " << suhu[0] << " C" << endl;
-    cout << "Suhu Tertinggi : " << suhu[n - 1] << " C" << endl;
-    cout << "Rata-rata Suhu : " << fixed << setprecision(2) << rataRata << " C" << endl;
-    cout << "Tren Suhu      : " << tren << endl;
-    cout << "========================================" << endl;
+    cout << "\n\nRata-rata: " << rataRata << " C" << endl;
+    cout << "Tren: " << tren << endl;
 }
